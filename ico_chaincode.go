@@ -21,8 +21,7 @@ func main() {
 
 // Init resets all the things
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	_, args := stub.GetFunctionAndParameters()
-    
+	    
     if len(args) != 1 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 1")
 	}
@@ -37,14 +36,12 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 
 // Invoke is ur entry point to invoke a chaincode function
 func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	
-    function, args := stub.GetFunctionAndParameters()
-    
+	    
     fmt.Println("invoke is running " + function)
 
 	// Handle different functions
 	if function == "init" {
-		return t.Init(stub)
+		return t.Init(stub,"init", args)
 	} else if function == "campaign" {
 		return t.campaign(stub, args)
 	} else if function == "update" {
@@ -60,8 +57,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
 
 // Query is our entry point for queries
 func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	function, args := stub.GetFunctionAndParameters()
-    
+	
     fmt.Println("query is running " + function)
 
 	// Handle different functions
